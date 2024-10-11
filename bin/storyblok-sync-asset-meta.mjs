@@ -51,7 +51,7 @@ MAXIMAL EXAMPLE
       --overwrite \\
       --publish \\
       --dry-run \\
-		--verbose
+      --verbose
 `)
 	process.exit(0)
 }
