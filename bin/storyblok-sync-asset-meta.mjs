@@ -226,9 +226,7 @@ const parseContentNode = (node) => {
 
 console.log('')
 console.log(`Processing stories...`)
-for (let i = 0; i < stories.length; i++) {
-	const story = stories[i]
-
+for (const story of stories) {
 	storyUpdateRequired = false
 
 	verboseLog('')
