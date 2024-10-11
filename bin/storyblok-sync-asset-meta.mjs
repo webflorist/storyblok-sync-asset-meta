@@ -32,6 +32,8 @@ OPTIONS
   --fields <fields>              Comma seperated list of meta-data fields to sync.
                                  Defaults to all ("alt,title,copyright,source").
                                  (e.g. --fields "alt,title")
+  --content-types <types>        Comma seperated list of content/component types to process. Defaults to all.
+                                 (e.g. --content-types "page,news-article")
   --skip-stories <stories>       Comma seperated list of the full-slugs of stories to skip.
                                  (e.g. --skip-stories "home,about-us")
   --only-stories <stories>       Comma seperated list of the full-slugs of stories you want to limit processing to.
@@ -51,6 +53,7 @@ MAXIMAL EXAMPLE
       --token 1234567890abcdef \\
       --region us \\
       --fields "alt,title" \\
+      --content-types "page,news-article" \\
       --only-stories "home" \\
       --overwrite \\
       --publish \\
@@ -88,6 +91,8 @@ if ('region' in args || process.env.STORYBLOK_REGION) {
 
 const verbose = 'verbose' in args
 
+const contentTypes = args['content-types'] ? args['content-types'].split(',') : null
+
 const skipStories = args['skip-stories'] ? args['skip-stories'].split(',') : []
 
 const onlyStories = args['only-stories'] ? args['only-stories'].split(',') : []
@@ -107,6 +112,7 @@ console.log(`- mode: ${args['dry-run'] ? 'dry-run' : 'live'}`)
 console.log(`- publish: ${args.publish ? 'yes' : 'no'}`)
 console.log(`- overwrite: ${args.overwrite ? 'yes' : 'no'}`)
 console.log(`- fields: ${fields.join(', ')}`)
+console.log(`- content types: ${contentTypes ? contentTypes.join(', ') : 'all'}`)
 console.log(`- skip-translations: ${args['skip-translations'] ? 'yes' : 'no'}`)
 if (skipStories.length > 0) {
 	console.log(`- skipped stories: ${skipStories.join(', ')}`)
@@ -128,6 +134,7 @@ const storyList = await StoryblokMAPI.getAll(`spaces/${spaceId}/stories`)
 for (const story of storyList) {
 	if (
 		!story.is_folder &&
+		(!contentTypes || contentTypes.includes(story.content_type)) &&
 		!skipStories.includes(story.full_slug) &&
 		(onlyStories.length > 0 ? onlyStories.includes(story.full_slug) : true)
 	) {

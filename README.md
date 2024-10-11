@@ -52,6 +52,8 @@ Call `npx storyblok-sync-asset-meta` with the following options:
 --fields <fields>              Comma seperated list of meta-data fields to sync.
                                Defaults to all ("alt,title,copyright,source").
                                (e.g. --fields "alt,title")
+--content-types <types>        Comma seperated list of content/component types to process. Defaults to all.
+                               (e.g. --content-types "page,news-article")
 --skip-stories <stories>       Comma seperated list of the full-slugs of stories to skip.
                                (e.g. --skip-stories "home,about-us")
 --only-stories <stories>       Comma seperated list of the full-slugs of stories you want to limit processing to.
@@ -79,6 +81,7 @@ npx storyblok-sync-asset-meta \
     --token 1234567890abcdef \
     --region us \
     --fields "alt,title" \
+    --content-types "page,news-article" \
     --only-stories "home" \
     --overwrite \
     --publish \
