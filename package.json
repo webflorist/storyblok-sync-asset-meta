@@ -1,0 +1,49 @@
+{
+	"name": "storyblok-sync-asset-meta",
+	"version": "0.0.1",
+	"description": "npx CLI tool to sync meta-info of assets from asset library to their instances in Storyblok stories.",
+	"scripts": {
+		"upgrade": "npx npm-check-updates -i -u --install never && pnpm install",
+		"lint:js": "eslint --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --ignore-path .lintignore .",
+		"lintfix:js": "pnpm lint:js --fix",
+		"lint:prettier": "prettier --ignore-path ./.lintignore --check .",
+		"lintfix:prettier": "prettier --ignore-path ./.lintignore --write --list-different .",
+		"lint": "pnpm lint:js && pnpm lint:prettier",
+		"lintfix": "pnpm lintfix:js && pnpm lintfix:prettier"
+	},
+	"bin": {
+		"storyblok-sync-asset-meta": "bin/storyblok-sync-asset-meta.mjs"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/webflorist/storyblok-sync-asset-meta.git"
+	},
+	"keywords": [
+		"storyblok",
+		"cms",
+		"sync",
+		"images",
+		"alt-text",
+		"cli",
+		"node",
+		"script",
+		"npx"
+	],
+	"author": "Gerald Buttinger <gerald@code.florist>",
+	"license": "MIT",
+	"bugs": {
+		"url": "https://github.com/webflorist/storyblok-sync-asset-meta/issues"
+	},
+	"homepage": "https://github.com/webflorist/storyblok-sync-asset-meta#readme",
+	"devDependencies": {
+		"eslint": "^8.49.0",
+		"eslint-config-prettier": "^9.1.0",
+		"eslint-plugin-prettier": "^5.1.3",
+		"prettier": "^3.3.2"
+	},
+	"dependencies": {
+		"@dotenvx/dotenvx": "^1.6.2",
+		"minimist": "^1.2.8",
+		"storyblok-js-client": "^6.7.3"
+	}
+}
