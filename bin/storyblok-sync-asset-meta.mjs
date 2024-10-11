@@ -136,6 +136,8 @@ for (const story of storyList) {
 	}
 }
 
+let storyUpdateRequired = false
+
 const isObject = (item) => typeof item === 'object' && !Array.isArray(item) && item !== null
 
 const isAssetObject = (item) =>
@@ -169,6 +171,7 @@ const syncAssetObject = (asset, locale) => {
 		asset[field] = libraryAsset[field]
 		asset.meta_data[field] = libraryAsset[field]
 		verboseLog(`      Value updated.`)
+		storyUpdateRequired = true
 	}
 	return asset
 }
@@ -219,10 +222,17 @@ console.log(`Processing stories...`)
 for (let i = 0; i < stories.length; i++) {
 	const story = stories[i]
 
+	storyUpdateRequired = false
+
 	verboseLog('')
 	verboseLog(`Slug "${story.full_slug}" / Name "${story.name}"`)
 
 	story.content = parseContentNode(story.content)
+
+	if (!storyUpdateRequired) {
+		verboseLog('No update required.')
+		continue
+	}
 
 	if (args['dry-run']) {
 		verboseLog('Dry-run mode. No changes performed.')
@@ -234,7 +244,7 @@ for (let i = 0; i < stories.length; i++) {
 		...(args.publish ? { publish: 1 } : {}),
 	})
 
-	verboseLog('Update successful.')
+	verboseLog('Story successfully updated.')
 }
 
 const endTime = performance.now()
