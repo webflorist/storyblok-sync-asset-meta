@@ -29,6 +29,9 @@ OPTIONS
                                  - 'ca': Canada
                                  - 'cn': China
                                  Alternatively, you can set the STORYBLOK_REGION environment variable.
+  --fields <fields>              Comma seperated list of meta-data fields to sync.
+                                 Defaults to all ("alt,title,copyright,source").
+                                 (e.g. --fields "alt,title")
   --skip-stories <stories>       Comma seperated list of the full-slugs of stories to skip.
                                  (e.g. --skip-stories "home,about-us")
   --only-stories <stories>       Comma seperated list of the full-slugs of stories you want to limit processing to.
@@ -47,6 +50,7 @@ MAXIMAL EXAMPLE
   $ npx storyblok-sync-asset-meta \\
       --token 1234567890abcdef \\
       --region us \\
+      --fields "alt,title" \\
       --only-stories "home" \\
       --overwrite \\
       --publish \\
@@ -88,6 +92,8 @@ const skipStories = args['skip-stories'] ? args['skip-stories'].split(',') : []
 
 const onlyStories = args['only-stories'] ? args['only-stories'].split(',') : []
 
+const fields = args['fields'] ? args['fields'].split(',') : ['alt', 'title', 'copyright', 'source']
+
 // Init Management API
 const StoryblokMAPI = new StoryblokClient({
 	oauthToken: oauthToken,
@@ -100,6 +106,7 @@ console.log(`Performing asset meta-data sync for space ${spaceId}:`)
 console.log(`- mode: ${args['dry-run'] ? 'dry-run' : 'live'}`)
 console.log(`- publish: ${args.publish ? 'yes' : 'no'}`)
 console.log(`- overwrite: ${args.overwrite ? 'yes' : 'no'}`)
+console.log(`- fields: ${fields.join(', ')}`)
 console.log(`- skip-translations: ${args['skip-translations'] ? 'yes' : 'no'}`)
 if (skipStories.length > 0) {
 	console.log(`- skipped stories: ${skipStories.join(', ')}`)
@@ -142,7 +149,7 @@ const syncAssetObject = (asset, locale) => {
 		verboseLog(`    Asset not found in library. Maybe it was deleted?`)
 		return asset
 	}
-	for (const field of ['alt', 'title', 'copyright', 'source']) {
+	for (const field of fields) {
 		verboseLog(`    - Field "${field}":`)
 		if (!libraryAsset[field]) {
 			verboseLog(`      Not set in library. Skipping.`)
