@@ -41,6 +41,7 @@ OPTIONS
   --skip-translations            Does not sync to translations of asset-fields. Defaults to false.
   --overwrite                    Overwrites existing meta data. Defaults to false.
   --publish                      Publish stories after updating. Defaults to false.
+                                 WARNING: May publish previously unpublished stories.
   --dry-run                      Only display the changes instead of performing them. Defaults to false.
   --verbose                      Show detailed output for every processed asset.
   --help                         Show this help
