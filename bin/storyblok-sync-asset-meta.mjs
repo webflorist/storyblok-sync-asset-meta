@@ -161,16 +161,16 @@ const syncAssetObject = (asset, locale) => {
 	}
 	for (const field of fields) {
 		verboseLog(`    - Field "${field}":`)
-		if (!libraryAsset[field]) {
+		if (!libraryAsset.meta_data[field]) {
 			verboseLog(`      Not set in library. Skipping.`)
 			continue
 		}
-		verboseLog(`      Library value: ${libraryAsset[field]}`)
-		if (libraryAsset[field] == asset[field]) {
+		verboseLog(`      Library value: ${libraryAsset.meta_data[field]}`)
+		if (libraryAsset.meta_data[field] == asset.meta_data[field]) {
 			verboseLog(`      Instance already has identical value. Skipping.`)
 			continue
-		} else if (asset[field]) {
-			verboseLog(`      Instance has different value: "${asset[field]}"`)
+		} else if (asset.meta_data[field]) {
+			verboseLog(`      Instance has different value: "${asset.meta_data[field]}"`)
 			if (!args.overwrite) {
 				verboseLog(`      Use parameter --overwrite to force sync. Skipping.`)
 				continue
