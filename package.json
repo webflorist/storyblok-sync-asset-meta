@@ -1,6 +1,6 @@
 {
 	"name": "storyblok-sync-asset-meta",
-	"version": "0.0.1",
+	"version": "0.0.2",
 	"description": "npx CLI tool to sync meta-info of assets from asset library to their instances in Storyblok stories.",
 	"scripts": {
 		"upgrade-packages": "pnpm dlx npm-check-updates --interactive --upgrade --root --install never --cooldown 2",
