@@ -3,7 +3,7 @@
 	"version": "0.0.1",
 	"description": "npx CLI tool to sync meta-info of assets from asset library to their instances in Storyblok stories.",
 	"scripts": {
-		"upgrade": "npx npm-check-updates -i -u --install never && pnpm install",
+		"upgrade-packages": "pnpm dlx npm-check-updates --interactive --upgrade --root --install never --cooldown 2",
 		"lint:js": "eslint --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --ignore-path .lintignore .",
 		"lintfix:js": "pnpm lint:js --fix",
 		"lint:prettier": "prettier --ignore-path ./.lintignore --check .",
